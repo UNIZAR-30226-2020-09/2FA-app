@@ -1,28 +1,14 @@
 <resources>
-    <string name="app_name">Pandora</string>
+    <string name="app_name">2FA Pandora</string>
     <!-- Pantalla de inicio -->
     <string name="inicio_bienvenido">BIENVENIDO A</string>
     <string name="inicio_subtexto">2FA</string>
     <string name="inicio_logo">Logo</string>
     <string name="inicio_login">Iniciar sesión</string>
-    <string name="inicio_texto">¿Todavía no tiene una cuenta?</string>
-    <string name="inicio_registro">Registrarse</string>
+
     <string name="inicio_texto2">¿Tiene algún problema?</string>
     <string name="inicio_contacto">Contáctenos</string>
 
-    <!-- Primera pantalla de registro -->
-    <string name="registro_texto">Registro</string>
-    <string name="registro_texto_correo">Introduzca su correo electrónico</string>
-    <string name="registro_hint_correo">example@example.example</string>
-    <string name="registro_siguiente">Siguiente</string>
-    <string name="registro_long_correo">100</string>
+    <string name="principal_generar2FA">Generar código</string>
 
-    <!-- Segunda pantalla de registro -->
-    <string name="registro2_texto">Registro</string>
-    <string name="registro2_texto_clave1">Introduzca una <b>clave maestra</b></string>
-    <string name="registro2_hint_clave1">Clave maestra</string>
-    <string name="registro2_long_clave">40</string>
-    <string name="registro2_texto_clave2">Repita la clave maestra</string>
-    <string name="registro2_hint_clave2">Clave maestra</string>
-    <string name="registro2_confirmar">Confirmar</string>
 </resources>

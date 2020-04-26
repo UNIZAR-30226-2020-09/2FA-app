@@ -10,26 +10,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".categorias.EditarCategoria"></activity>
-        <activity android:name=".categorias.ListadoCategorias" />
         <activity android:name=".plataforma.SobrePandora" />
-        <activity android:name=".passwords.InformacionPassword" />
-        <activity
-            android:name=".passwords.EditarPassword"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".categorias.CrearCategoria" />
-        <activity android:name=".passwords.CrearPasswordCinco" />
-        <activity android:name=".passwords.CrearPasswordCuatro" />
-        <activity android:name=".passwords.CrearPasswordTres" />
-        <activity android:name=".passwords.CrearPasswordDos" />
-        <activity android:name=".passwords.CrearPasswordUno" />
-        <activity android:name=".passwords.CrearPasswordSeis" />
+
         <activity android:name=".Principal" />
         <activity android:name=".plataforma.ContactarTres" />
         <activity android:name=".plataforma.ContactarDos" />
         <activity android:name=".plataforma.ContactarUno" />
-        <activity android:name=".autenticacion.RegistroUno" />
-        <activity android:name=".autenticacion.RegistroDos" />
         <activity android:name=".autenticacion.Login" />
         <activity android:name=".Inicio">
             <intent-filter>

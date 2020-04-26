@@ -3,7 +3,7 @@
 
     # Colores básicos de la interfaz
     <color name="colorPrimary">#2c2f33</color>
-    <color name="colorPrimaryDark">#23272A</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorFondo">#DCCFEC</color>
     <color name="colorTextos">#23272A</color>
     <color name="colorButtonEnabled">#A997DF</color>

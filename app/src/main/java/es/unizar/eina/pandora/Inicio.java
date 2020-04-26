@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import es.unizar.eina.pandora.autenticacion.Login;
-import es.unizar.eina.pandora.autenticacion.RegistroUno;
 import es.unizar.eina.pandora.plataforma.ContactarUno;
 import es.unizar.eina.pandora.utiles.MiRunnable;
 import es.unizar.eina.pandora.utiles.PrintOnThread;
@@ -72,10 +71,6 @@ public class Inicio extends AppCompatActivity {
         startActivity(new Intent(Inicio.this, Login.class));
     }
 
-    public void goRegistro(View view){
-        recargarEstadisticas.killRunnable();
-        startActivity(new Intent(Inicio.this, RegistroUno.class));
-    }
 
     public void goContacto(View view){
         recargarEstadisticas.killRunnable();

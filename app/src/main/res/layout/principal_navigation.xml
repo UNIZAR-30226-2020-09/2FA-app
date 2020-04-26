@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/principalnav"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">>
+    android:layout_height="match_parent"
+    android:background="@color/colorFondo">>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/principalnav_topbar"
@@ -40,92 +41,26 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/topbar_filtros"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="54dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:onClick="mostrarFiltradoCategorias"
-                android:src="@drawable/ic_filter" />
 
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_principal"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/principal_add"
+    <Button
+        android:id="@+id/principal_generar2FA"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/principal_add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="40dp"
-            android:clickable="true"
-            android:onClick="pulsarAdd"
-            android:tint="@color/design_default_color_on_primary"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add" />
-
-        <FrameLayout
-            android:id="@+id/principal_frame_cat"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="70dp"
-            android:background="@android:color/transparent"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/principal_add_button">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/principal_add_cat_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:onClick="addCategory"
-                android:src="@drawable/category"
-                app:backgroundTint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/principal_add_button" />
-            />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/principal_frame_con"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="125dp"
-            android:background="@android:color/transparent"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/principal_frame_cat">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/principal_add_con_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:onClick="addPassword"
-                android:src="@drawable/pass"
-                app:backgroundTint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/principal_add_button" />
-            />
-        </FrameLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="238dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="237dp"
+        android:onClick="pulsarAdd"
+        android:text="@string/principal_generar2FA"
+        app:layout_constraintBottom_toTopOf="@+id/inicio_texto2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/inicio_subtexto" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
