@@ -51,6 +51,8 @@ public class Login extends AppCompatActivity {
         }
         */
 
+
+
         email = findViewById(R.id.login_entrada_usuario);
         password = findViewById(R.id.login_entrada_clave);
     }

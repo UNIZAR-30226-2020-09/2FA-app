@@ -2,6 +2,7 @@
     <string name="app_name">Pandora</string>
     <!-- Pantalla de inicio -->
     <string name="inicio_bienvenido">BIENVENIDO A</string>
+    <string name="inicio_subtexto">2FA</string>
     <string name="inicio_logo">Logo</string>
     <string name="inicio_login">Iniciar sesión</string>
     <string name="inicio_texto">¿Todavía no tiene una cuenta?</string>
