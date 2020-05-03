@@ -1,4 +1,4 @@
-package es.unizar.eina.pandora.plataforma;
+package es.unizar.eina.pandora2FA.plataforma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import es.unizar.eina.pandora.Inicio;
-import es.unizar.eina.pandora.Principal;
-import es.unizar.eina.pandora.R;
-import es.unizar.eina.pandora.utiles.SharedPreferencesHelper;
+import es.unizar.eina.pandora2FA.Inicio;
+import es.unizar.eina.pandora2FA.Principal;
+import es.unizar.eina.pandora2FA.R;
+import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 
 public class ContactarTres extends AppCompatActivity {
 

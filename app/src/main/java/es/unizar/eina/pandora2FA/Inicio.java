@@ -1,7 +1,6 @@
-package es.unizar.eina.pandora;
+package es.unizar.eina.pandora2FA;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +14,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import es.unizar.eina.pandora.autenticacion.Login;
-import es.unizar.eina.pandora.plataforma.ContactarUno;
-import es.unizar.eina.pandora.utiles.MiRunnable;
-import es.unizar.eina.pandora.utiles.PrintOnThread;
-import es.unizar.eina.pandora.utiles.SharedPreferencesHelper;
+import es.unizar.eina.pandora2FA.autenticacion.Login;
+import es.unizar.eina.pandora2FA.plataforma.ContactarUno;
+import es.unizar.eina.pandora2FA.utiles.MiRunnable;
+import es.unizar.eina.pandora2FA.utiles.PrintOnThread;
+import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

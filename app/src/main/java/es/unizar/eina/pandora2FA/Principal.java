@@ -1,37 +1,32 @@
-package es.unizar.eina.pandora;
+package es.unizar.eina.pandora2FA;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import es.unizar.eina.pandora.plataforma.ContactarUno;
-import es.unizar.eina.pandora.plataforma.SobrePandora;
-import es.unizar.eina.pandora.utiles.PrintOnThread;
-import es.unizar.eina.pandora.utiles.SharedPreferencesHelper;
+import es.unizar.eina.pandora2FA.plataforma.ContactarUno;
+import es.unizar.eina.pandora2FA.plataforma.SobrePandora;
+import es.unizar.eina.pandora2FA.utiles.PrintOnThread;
+import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -42,8 +37,9 @@ import okhttp3.Response;
 
 public class Principal extends AppCompatActivity {
 
-    private final String urlget2FAkey = "https://pandorapp.herokuapp.com/api/usuarios/get2FAkey";
+    private final String urlget2FAkey = "https://pandorapp.herokuapp.com/api/2FA/get2FAkey";
     private final String urlEliminarCuenta = "https://pandorapp.herokuapp.com/api/usuarios/eliminar";
+    private final String urlCerrarSesion = "https://pandorapp.herokuapp.com/api/2FA/logout";
 
     private final OkHttpClient httpClient = new OkHttpClient();
 
@@ -51,7 +47,7 @@ public class Principal extends AppCompatActivity {
     private String email;
     private String password;
     private ArrayList<JSONObject> lista_respuesta = new ArrayList<>();
-    String key2FA;
+
 
     // Elementos de la interfaz.
     private Toolbar toolbar;
@@ -59,7 +55,18 @@ public class Principal extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView drawerView;
     private View headerDrawer;
+    private TextView key2FA;
+    private TextView segundosCuenta;
 
+    //key2FA
+    private String stringkey2FA;
+    private int intsegudnosCuenta = 0;
+
+    private int segundosMin = 0;
+    private int segundosMax = 10;
+
+    private Timer timer = new Timer();
+    private TimerTask timerTask;
 
 
     @Override
@@ -72,6 +79,9 @@ public class Principal extends AppCompatActivity {
         email = sharedPreferencesHelper.getString("email",null);
         password = sharedPreferencesHelper.getString("password",null);
 
+        key2FA = findViewById(R.id.id_key2FA);
+        segundosCuenta = findViewById(R.id.id_segudnos);
+        segundosCuenta.setText("0");
 
 
         // Menú desplegable.
@@ -86,16 +96,35 @@ public class Principal extends AppCompatActivity {
         drawerEmail = headerDrawer.findViewById(R.id.drawer_email);
         drawerEmail.setText(email);
 
+        //Auto actualizar codigo
+
+
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    actualizarCodigo();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        timer.schedule(timerTask, 0, 1000);
+    }
+
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        timer.cancel();
     }
 
 
 
 
-
-
-
-
     public void cerrarSesion(MenuItem menuItem){
+        doPostCerrarSesion();
+
         SharedPreferencesHelper.getInstance(getApplicationContext()).clear();
         startActivity(new Intent(Principal.this, Inicio.class));
         finishAffinity();
@@ -133,11 +162,18 @@ public class Principal extends AppCompatActivity {
 
 
 
+    public void actualizarCodigo() throws InterruptedException {
 
-    public void pulsarAdd() throws InterruptedException {
+        if(intsegudnosCuenta > segundosMin){
+            intsegudnosCuenta --;
+            segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+            return;
+        }
+        intsegudnosCuenta = segundosMax;
+        segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+
         // Recogemos el token
         String token = SharedPreferencesHelper.getInstance(getApplicationContext()).getString("token");
-
         JSONObject json = new JSONObject();
         try{
             //json.accumulate("masterPassword",password);
@@ -154,9 +190,8 @@ public class Principal extends AppCompatActivity {
         // Formamos la petición con el cuerpo creado
         final Request request = new Request.Builder()
                 .url(urlget2FAkey)
-                .addHeader("Content-Type", formBody.contentType().toString())
+                .get()
                 .addHeader("Authorization", token)
-                .post(formBody)
                 .build();
         // Hacemos la petición SÍNCRONA
         // Enviamos la petición en un thread nuevo y actuamos en función de la respuesta
@@ -166,7 +201,8 @@ public class Principal extends AppCompatActivity {
                 try (Response response = httpClient.newCall(request).execute()) {
                     JSONObject json = new JSONObject(response.body().string());
                     if (response.isSuccessful()) {
-                        key2FA = json.getString("key");
+                        stringkey2FA = json.getString("key");
+                        key2FA.setText(stringkey2FA);
                     }else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));
                     }
@@ -189,6 +225,34 @@ public class Principal extends AppCompatActivity {
                 .url(urlEliminarCuenta)
                 .addHeader("Authorization", token)
                 .delete()
+                .build();
+
+        // Hacemos la petición
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SharedPreferencesHelper.getInstance(getApplicationContext()).clear();
+                    startActivity(new Intent(Principal.this, Inicio.class));
+                    finish();
+                }
+            }
+            @Override
+            public void onFailure(Call call, IOException e) { e.printStackTrace();}
+        });
+    }
+
+    public void doPostCerrarSesion() {
+        // Recogemos el token
+        String token = SharedPreferencesHelper.getInstance(getApplicationContext()).getString("token");
+
+        // Formamos la petición con el token
+        JSONObject json = new JSONObject();
+        RequestBody formBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString());
+        final Request request = new Request.Builder()
+                .url(urlCerrarSesion)
+                .addHeader("Authorization", token)
+                .post(formBody)
                 .build();
 
         // Hacemos la petición

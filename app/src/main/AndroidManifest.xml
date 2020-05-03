@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="es.unizar.eina.pandora">
+    package="es.unizar.eina.pandora2FA">
     <!-- To call backing services -->
     <uses-permission android:name="android.permission.INTERNET" />
 

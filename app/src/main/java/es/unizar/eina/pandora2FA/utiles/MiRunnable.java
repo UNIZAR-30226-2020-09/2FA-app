@@ -1,4 +1,4 @@
-package es.unizar.eina.pandora.utiles;
+package es.unizar.eina.pandora2FA.utiles;
 
 public abstract class MiRunnable implements Runnable {
     private boolean killed = false;

@@ -1,4 +1,4 @@
-package es.unizar.eina.pandora.plataforma;
+package es.unizar.eina.pandora2FA.plataforma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,9 +13,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import es.unizar.eina.pandora.R;
-import es.unizar.eina.pandora.utiles.PrintOnThread;
-import es.unizar.eina.pandora.utiles.SharedPreferencesHelper;
+import es.unizar.eina.pandora2FA.R;
+import es.unizar.eina.pandora2FA.utiles.PrintOnThread;
+import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 import okhttp3.*;
 
 public class ContactarDos extends AppCompatActivity {

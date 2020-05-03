@@ -1,4 +1,4 @@
-package es.unizar.eina.pandora.utiles;
+package es.unizar.eina.pandora2FA.utiles;
 
 import android.content.Context;
 import android.content.SharedPreferences;

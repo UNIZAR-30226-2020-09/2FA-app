@@ -1,4 +1,4 @@
-package es.unizar.eina.pandora.plataforma;
+package es.unizar.eina.pandora2FA.plataforma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import es.unizar.eina.pandora.R;
-import es.unizar.eina.pandora.utiles.SharedPreferencesHelper;
+import es.unizar.eina.pandora2FA.R;
+import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 
 public class ContactarUno extends AppCompatActivity {
 

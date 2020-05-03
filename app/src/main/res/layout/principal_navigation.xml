@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/principalnav"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorFondo">>
+    android:layout_height="match_parent">>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/principalnav_topbar"
@@ -28,39 +27,76 @@
                 app:navigationIcon="@drawable/ic_menu"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <TextView
-                android:id="@+id/topbar_titulo"
-                android:layout_width="255dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Principal"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
+            <ImageButton
+                android:id="@+id/topbar_filtros"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="54dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp" />
 
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/principal_generar2FA"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/principal_add"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="238dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="237dp"
-        android:onClick="pulsarAdd"
-        android:text="@string/principal_generar2FA"
-        app:layout_constraintBottom_toTopOf="@+id/inicio_texto2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/inicio_subtexto" />
+        android:layout_height="match_parent"
+        android:background="@color/colorFondo">
+
+        <TextView
+            android:id="@+id/id_key2FA"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginBottom="479dp"
+            android:gravity="center"
+            android:text="CARGANDO..."
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/id_segudnos"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginBottom="79dp"
+            android:gravity="center"
+            android:text="10"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/topbar_titulo"
+        android:layout_width="255dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Principal"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_anchor="@+id/principal_add"
+        app:layout_anchorGravity="center" />
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

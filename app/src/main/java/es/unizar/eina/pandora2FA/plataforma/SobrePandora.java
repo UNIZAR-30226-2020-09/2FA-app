@@ -1,4 +1,4 @@
-package es.unizar.eina.pandora.plataforma;
+package es.unizar.eina.pandora2FA.plataforma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,11 +14,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import es.unizar.eina.pandora.Principal;
-import es.unizar.eina.pandora.R;
-import es.unizar.eina.pandora.utiles.MiRunnable;
-import es.unizar.eina.pandora.utiles.PrintOnThread;
-import es.unizar.eina.pandora.utiles.SharedPreferencesHelper;
+import es.unizar.eina.pandora2FA.R;
+import es.unizar.eina.pandora2FA.utiles.MiRunnable;
+import es.unizar.eina.pandora2FA.utiles.PrintOnThread;
+import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
