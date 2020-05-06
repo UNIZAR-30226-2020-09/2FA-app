@@ -63,10 +63,19 @@ public class Principal extends AppCompatActivity {
     private int intsegudnosCuenta = 0;
 
     private int segundosMin = 0;
-    private int segundosMax = 10;
+    private int segundosMax = 30;
 
     private Timer timer = new Timer();
-    private TimerTask timerTask;
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            try {
+                actualizarCodigo();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
 
     @Override
@@ -97,8 +106,19 @@ public class Principal extends AppCompatActivity {
         drawerEmail.setText(email);
 
         //Auto actualizar codigo
+        timer.schedule(timerTask, 0, 1000);
+    }
 
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        timer.cancel();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
         timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -109,14 +129,6 @@ public class Principal extends AppCompatActivity {
                 }
             }
         };
-        timer.schedule(timerTask, 0, 1000);
-    }
-
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        timer.cancel();
     }
 
 
