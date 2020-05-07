@@ -104,11 +104,7 @@ public class Principal extends AppCompatActivity {
         headerDrawer = drawerView.getHeaderView(0);
         drawerEmail = headerDrawer.findViewById(R.id.drawer_email);
         drawerEmail.setText(email);
-
-        //Auto actualizar codigo
-        timer.schedule(timerTask, 0, 1000);
     }
-
 
     @Override
     public void onPause(){
@@ -129,10 +125,11 @@ public class Principal extends AppCompatActivity {
                 }
             }
         };
+        //Auto actualizar codigo
+        intsegudnosCuenta = segundosMin;
+        timer = new Timer();
+        timer.schedule(timerTask, 0, 1000);
     }
-
-
-
 
     public void cerrarSesion(MenuItem menuItem){
         doPostCerrarSesion();
@@ -170,10 +167,6 @@ public class Principal extends AppCompatActivity {
     }
 
 
-
-
-
-
     public void actualizarCodigo() throws InterruptedException {
 
         if(intsegudnosCuenta > segundosMin){
@@ -205,6 +198,7 @@ public class Principal extends AppCompatActivity {
                 .get()
                 .addHeader("Authorization", token)
                 .build();
+
         // Hacemos la petición SÍNCRONA
         // Enviamos la petición en un thread nuevo y actuamos en función de la respuesta
         Thread thread = new Thread(new Runnable() {
@@ -281,5 +275,4 @@ public class Principal extends AppCompatActivity {
             public void onFailure(Call call, IOException e) { e.printStackTrace();}
         });
     }
-
 }

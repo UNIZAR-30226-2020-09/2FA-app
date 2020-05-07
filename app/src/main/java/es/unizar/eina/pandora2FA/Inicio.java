@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import es.unizar.eina.pandora2FA.autenticacion.Login;
 import es.unizar.eina.pandora2FA.plataforma.ContactarUno;
-import es.unizar.eina.pandora2FA.utiles.MiRunnable;
 import es.unizar.eina.pandora2FA.utiles.PrintOnThread;
 import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 import okhttp3.Call;
@@ -29,19 +28,6 @@ public class Inicio extends AppCompatActivity {
 
     final String url = "https://pandorapp.herokuapp.com/api/estadisticas";
     private final OkHttpClient httpClient = new OkHttpClient();
-
-    // Para hacer las peticiones continuas de las stats
-    final Handler handler = new Handler();
-    MiRunnable recargarEstadisticas = new MiRunnable() {
-        @Override
-        public void run() {
-            if(!isKilled()) {
-                doPost();
-                Log.d("Pido estadisticas", "Inicio");
-                handler.postDelayed(this, 2000);
-            }
-        }
-    };
 
     TextView nUsuarios;
     TextView nPass;
@@ -56,23 +42,19 @@ public class Inicio extends AppCompatActivity {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         String token = sharedPreferencesHelper.getString("token",null);
         if(token != null){
-            recargarEstadisticas.killRunnable();
             startActivity(new Intent(Inicio.this, Principal.class));
             finishAffinity();
         }
 
-        // Empezar a hacer petición de estadísticas
-        handler.post(recargarEstadisticas);
+        doPost();
     }
 
     public void goLogin(View view){
-        recargarEstadisticas.killRunnable();
         startActivity(new Intent(Inicio.this, Login.class));
     }
 
 
     public void goContacto(View view){
-        recargarEstadisticas.killRunnable();
         startActivity(new Intent(Inicio.this, ContactarUno.class));
     }
 

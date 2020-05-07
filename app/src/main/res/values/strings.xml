@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">2FA Pandora</string>
+    <string name="app_name">PandoraAuth</string>
     <!-- Pantalla de inicio -->
     <string name="inicio_bienvenido">BIENVENIDO A</string>
-    <string name="inicio_subtexto">2FA</string>
+    <string name="inicio_subtexto">AUTH</string>
     <string name="inicio_logo">Logo</string>
     <string name="inicio_login">Iniciar sesión</string>
 
