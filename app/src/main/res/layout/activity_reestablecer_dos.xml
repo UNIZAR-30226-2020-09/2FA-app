@@ -7,20 +7,6 @@
     android:background="@color/colorFondo">
 
 
-
-    <TextView
-        android:id="@+id/reinicio_texto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:text="¿No puede entrar?"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/login_entrar"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/login_texto"
         android:layout_width="wrap_content"
@@ -29,7 +15,7 @@
         android:layout_marginTop="118dp"
         android:layout_marginEnd="99dp"
         android:layout_marginBottom="32dp"
-        android:text="Iniciar sesión"
+        android:text="Reestablecer accesos"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/login_texto_usuario"
@@ -44,17 +30,17 @@
         android:layout_marginStart="51dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="Email"
+        android:text="Código de verificación"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_entrada_usuario"
+        app:layout_constraintBottom_toTopOf="@+id/codigo_verificacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_texto" />
 
     <EditText
-        android:id="@+id/login_entrada_usuario"
+        android:id="@+id/codigo_verificacion"
         android:layout_width="294dp"
         android:layout_height="50dp"
         android:layout_marginStart="51dp"
@@ -62,7 +48,7 @@
         android:layout_marginEnd="66dp"
         android:layout_marginBottom="33dp"
         android:ems="10"
-        android:hint="example@example.example"
+        android:hint="ABCDEF"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/login_texto_clave"
@@ -76,17 +62,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
         android:layout_marginTop="33dp"
-        android:text="Clave maestra"
+        android:text="Nueva clave maestra"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_entrada_clave"
+        app:layout_constraintBottom_toTopOf="@+id/ueva_clave_reestablecer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_entrada_usuario" />
+        app:layout_constraintTop_toBottomOf="@+id/codigo_verificacion" />
 
     <EditText
-        android:id="@+id/login_entrada_clave"
+        android:id="@+id/ueva_clave_reestablecer"
         android:layout_width="294dp"
         android:layout_height="50dp"
         android:layout_marginStart="51dp"
@@ -95,23 +81,23 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:ems="10"
-        android:hint="Introduzca su clave maestra"
+        android:hint="Introduzca una nueva clave maestra"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/login_entrar"
+        app:layout_constraintBottom_toTopOf="@+id/verificar_codigo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_texto_clave" />
 
     <Button
-        android:id="@+id/login_entrar"
+        android:id="@+id/verificar_codigo"
         style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="32dp"
         android:onClick="entrar"
-        android:text="Entrar"
+        android:text="Verificar código"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

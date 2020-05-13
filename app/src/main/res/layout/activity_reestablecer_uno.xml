@@ -7,19 +7,22 @@
     android:background="@color/colorFondo">
 
 
-
     <TextView
-        android:id="@+id/reinicio_texto"
+        android:id="@+id/login_texto3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:text="¿No puede entrar?"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="32dp"
+        android:text="Para cerrar sesión en todos los dispositivos"
         android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/login_entrar"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/login_texto_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/login_texto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_texto" />
 
     <TextView
         android:id="@+id/login_texto"
@@ -29,7 +32,7 @@
         android:layout_marginTop="118dp"
         android:layout_marginEnd="99dp"
         android:layout_marginBottom="32dp"
-        android:text="Iniciar sesión"
+        android:text="Reestablecer accesos"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/login_texto_usuario"
@@ -47,14 +50,14 @@
         android:text="Email"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_entrada_usuario"
+        app:layout_constraintBottom_toTopOf="@+id/email_reestablecer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_texto" />
 
     <EditText
-        android:id="@+id/login_entrada_usuario"
+        android:id="@+id/email_reestablecer"
         android:layout_width="294dp"
         android:layout_height="50dp"
         android:layout_marginStart="51dp"
@@ -65,13 +68,13 @@
         android:hint="example@example.example"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/login_texto_clave"
+        app:layout_constraintBottom_toTopOf="@+id/texto_clave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_texto_usuario" />
 
     <TextView
-        android:id="@+id/login_texto_clave"
+        android:id="@+id/texto_clave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
@@ -79,14 +82,14 @@
         android:text="Clave maestra"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_entrada_clave"
+        app:layout_constraintBottom_toTopOf="@+id/clave_reestablecer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_entrada_usuario" />
+        app:layout_constraintTop_toBottomOf="@+id/email_reestablecer" />
 
     <EditText
-        android:id="@+id/login_entrada_clave"
+        android:id="@+id/clave_reestablecer"
         android:layout_width="294dp"
         android:layout_height="50dp"
         android:layout_marginStart="51dp"
@@ -98,20 +101,20 @@
         android:hint="Introduzca su clave maestra"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/login_entrar"
+        app:layout_constraintBottom_toTopOf="@+id/enviar_codigo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_texto_clave" />
+        app:layout_constraintTop_toBottomOf="@+id/texto_clave" />
 
     <Button
-        android:id="@+id/login_entrar"
+        android:id="@+id/enviar_codigo"
         style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="32dp"
         android:onClick="entrar"
-        android:text="Entrar"
+        android:text="Enviar código"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

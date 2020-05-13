@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -30,43 +31,34 @@ public class Login extends AppCompatActivity {
     final String url = "https://pandorapp.herokuapp.com/api/2FA/login";
     private final OkHttpClient httpClient = new OkHttpClient();
 
-    TextView email;
-    TextView password;
+    private TextView email;
+    private TextView password;
+    private Button entrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        /*
-        Por si vuelven a cambiar el token, necesitaremos iniciar sesión para que nos den uno nuevo
-        //String _email = sharedPreferences.getString("email",null);
-        //String _password = sharedPreferences.getString("password",null);
-        // Si ya tenemos estos datos, iniciamos sesión automáticamente
-
-        if (_email != null && _password != null) {
-            doPost(sharedPreferences.getString("email",null),
-                    sharedPreferences.getString("password",null));
-            finish();
-        }
-        */
-
-
 
         email = findViewById(R.id.login_entrada_usuario);
         password = findViewById(R.id.login_entrada_clave);
+        entrar = findViewById(R.id.login_entrar);
+
     }
 
-    public void entrar(View view) {
+    public void entrar(View view) throws InterruptedException {
+        entrar.setEnabled(false);
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         sharedPreferencesHelper.put("email", email.getText().toString().trim());
         sharedPreferencesHelper.put("password", password.getText().toString().trim());
 
         doPost(sharedPreferencesHelper.getString("email"),
                 sharedPreferencesHelper.getString("password"));
+        entrar.setEnabled(true);
     }
 
-    private void doPost(final String correo, final String contrasena) {
+    private void doPost(final String correo, final String contrasena) throws InterruptedException {
         Log.d("correo", correo);
         Log.d("contrasena", contrasena);
 
@@ -90,29 +82,30 @@ public class Login extends AppCompatActivity {
                 .post(formBody)
                 .build();
 
-        // Hacemos la petición
-        httpClient.newCall(request).enqueue(new Callback() {
+
+        // Hacemos la petición SÍNCRONA
+        // Enviamos la petición en un thread nuevo y actuamos en función de la respuesta
+        Thread thread = new Thread(new Runnable() {
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
+            public void run() {
+                try (Response response = httpClient.newCall(request).execute()) {
                     JSONObject json = new JSONObject(response.body().string());
                     if (response.isSuccessful()) {
-                            String token = json.getString("token");
-                            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
-                            sharedPreferencesHelper.put("token", token);
-                            startActivity(new Intent(Login.this, Principal.class));
-                            finishAffinity();
-                    }
-                    else {
+                        String token = json.getString("token");
+                        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
+                        sharedPreferencesHelper.put("token", token);
+                        startActivity(new Intent(Login.this, Principal.class));
+                        finishAffinity();
+                    }else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));
-                        SharedPreferencesHelper.getInstance(getApplicationContext()).clear();
                     }
-                } catch (JSONException e) {
+                }
+                catch (IOException | JSONException e){
                     e.printStackTrace();
                 }
             }
-            @Override
-            public void onFailure(Call call, IOException e) { e.printStackTrace();}
         });
+        thread.start();
+        thread.join();
     }
 }
