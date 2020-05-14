@@ -54,6 +54,8 @@ public class ReestablecerUno extends AppCompatActivity {
     public void goSiguiente(View view) throws InterruptedException {
         enviar.setEnabled(false);
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
+        sharedPreferencesHelper.put("email", email.getText().toString().trim());
+        sharedPreferencesHelper.put("password", password.getText().toString().trim());
         doPost(email.getText().toString(), password.getText().toString());
         enviar.setEnabled(true);
 
