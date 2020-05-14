@@ -1,5 +1,6 @@
 package es.unizar.eina.pandora2FA;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -78,6 +81,7 @@ public class Principal extends AppCompatActivity {
     };
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +94,24 @@ public class Principal extends AppCompatActivity {
 
         key2FA = findViewById(R.id.id_key2FA);
         segundosCuenta = findViewById(R.id.id_segudnos);
-        segundosCuenta.setText("0");
+
+
+
+
+        long lastCodeDate = sharedPreferencesHelper.getLong("lastCodeDate");
+        long tActual = SystemClock.uptimeMillis();
+
+        if((tActual - lastCodeDate) > 30000){
+            intsegudnosCuenta = segundosMin;
+        }
+        else{
+            intsegudnosCuenta = (int)(tActual/1000 - lastCodeDate/1000);
+            key2FA.setText(sharedPreferencesHelper.getString("codeTFA"));
+        }
+        segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+
+
+        timer.schedule(timerTask, 0, 1000);
 
 
         // Menú desplegable.
@@ -106,30 +127,6 @@ public class Principal extends AppCompatActivity {
         drawerEmail.setText(email);
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-        timer.cancel();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    actualizarCodigo();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        //Auto actualizar codigo
-        intsegudnosCuenta = segundosMin;
-        timer = new Timer();
-        timer.schedule(timerTask, 0, 1000);
-    }
 
     public void cerrarSesion(MenuItem menuItem){
         doPostCerrarSesion();
@@ -174,6 +171,8 @@ public class Principal extends AppCompatActivity {
             segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
             return;
         }
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
+        sharedPreferencesHelper.put("lastCodeDate", SystemClock.uptimeMillis());
         intsegudnosCuenta = segundosMax;
         segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
 
@@ -209,6 +208,7 @@ public class Principal extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         stringkey2FA = json.getString("key");
                         key2FA.setText(stringkey2FA);
+                        SharedPreferencesHelper.getInstance(getApplicationContext()).put("codeTFA", stringkey2FA);
                     }else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));
                     }

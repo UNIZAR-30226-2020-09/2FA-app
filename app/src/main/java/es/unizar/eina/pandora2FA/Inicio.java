@@ -45,7 +45,6 @@ public class Inicio extends AppCompatActivity {
             startActivity(new Intent(Inicio.this, Principal.class));
             finishAffinity();
         }
-
         doPost();
     }
 

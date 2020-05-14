@@ -1,6 +1,4 @@
-package es.unizar.eina.pandora2FA.autenticacion;
-
-import androidx.appcompat.app.AppCompatActivity;
+package es.unizar.eina.pandora2FA.reestablecer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import es.unizar.eina.pandora2FA.Principal;
 import es.unizar.eina.pandora2FA.R;
-import es.unizar.eina.pandora2FA.reestablecer.ReestablecerUno;
 import es.unizar.eina.pandora2FA.utiles.PrintOnThread;
 import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
 import okhttp3.Call;
@@ -27,54 +26,49 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Login extends AppCompatActivity {
+public class ReestablecerDos extends AppCompatActivity {
 
-    final String url = "https://pandorapp.herokuapp.com/api/2FA/login";
+    final String url = "https://pandorapp.herokuapp.com/api/2FA/verificarReset";
     private final OkHttpClient httpClient = new OkHttpClient();
 
-    private TextView email;
-    private TextView password;
-    private Button entrar;
+    private TextView codigo;
+    private TextView nuevaContra;
+    private Button verificar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_reestablecer_dos);
 
-
-        email = findViewById(R.id.login_entrada_usuario);
-        password = findViewById(R.id.login_entrada_clave);
-        entrar = findViewById(R.id.login_entrar);
+        codigo = findViewById(R.id.codigo_verificacion);
+        nuevaContra = findViewById(R.id.ueva_clave_reestablecer);
+        verificar = findViewById(R.id.verificar_codigo);
 
     }
 
-    public void entrar(View view) throws InterruptedException {
-        entrar.setEnabled(false);
+    public void verificar(View view) throws InterruptedException {
+
+        verificar.setEnabled(false);
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
-        sharedPreferencesHelper.put("email", email.getText().toString().trim());
-        sharedPreferencesHelper.put("password", password.getText().toString().trim());
-
-        doPost(sharedPreferencesHelper.getString("email"),
-                sharedPreferencesHelper.getString("password"));
-        entrar.setEnabled(true);
+        doPost(sharedPreferencesHelper.getString("email"), sharedPreferencesHelper.getString("password"), nuevaContra.getText().toString(), codigo.getText().toString());
+        verificar.setEnabled(true);
     }
 
-    public void entrarReestablecer(View view) throws InterruptedException {
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
-        sharedPreferencesHelper.put("email", email.getText().toString().trim());
-        sharedPreferencesHelper.put("password", password.getText().toString().trim());
-        startActivity(new Intent(Login.this, ReestablecerUno.class));
-    }
-
-    private void doPost(final String correo, final String contrasena) throws InterruptedException {
+    private void doPost(final String correo, final String oldContrasena, final String newContrasena, final String codigo) throws InterruptedException {
         Log.d("correo", correo);
-        Log.d("contrasena", contrasena);
+        Log.d("oldContrasena", oldContrasena);
+        Log.d("newContrasena", newContrasena);
+        Log.d("codigo", codigo);
 
         // Formamos un JSON con los parámetros
         JSONObject json = new JSONObject();
         try{
             json.accumulate("mail",correo);
-            json.accumulate("masterPassword",contrasena);
+            json.accumulate("oldMasterPassword",oldContrasena);
+            json.accumulate("newMasterPassword",newContrasena);
+            json.accumulate("resetCode",codigo);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -103,7 +97,7 @@ public class Login extends AppCompatActivity {
                         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
                         sharedPreferencesHelper.put("lastCodeDate", (long) 0);
                         sharedPreferencesHelper.put("token", token);
-                        startActivity(new Intent(Login.this, Principal.class));
+                        startActivity(new Intent(ReestablecerDos.this, Principal.class));
                         finishAffinity();
                     }else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));

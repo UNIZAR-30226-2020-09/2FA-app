@@ -16,6 +16,8 @@
         <activity android:name=".plataforma.ContactarTres" />
         <activity android:name=".plataforma.ContactarDos" />
         <activity android:name=".plataforma.ContactarUno" />
+        <activity android:name=".reestablecer.ReestablecerUno" />
+        <activity android:name=".reestablecer.ReestablecerDos" />
         <activity android:name=".autenticacion.Login" />
         <activity android:name=".Inicio">
             <intent-filter>

@@ -1,6 +1,4 @@
-package es.unizar.eina.pandora2FA.autenticacion;
-
-import androidx.appcompat.app.AppCompatActivity;
+package es.unizar.eina.pandora2FA.reestablecer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,54 +16,47 @@ import java.io.IOException;
 
 import es.unizar.eina.pandora2FA.Principal;
 import es.unizar.eina.pandora2FA.R;
-import es.unizar.eina.pandora2FA.reestablecer.ReestablecerUno;
+import es.unizar.eina.pandora2FA.autenticacion.Login;
 import es.unizar.eina.pandora2FA.utiles.PrintOnThread;
 import es.unizar.eina.pandora2FA.utiles.SharedPreferencesHelper;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Login extends AppCompatActivity {
+public class ReestablecerUno extends AppCompatActivity {
 
-    final String url = "https://pandorapp.herokuapp.com/api/2FA/login";
+    final String url = "https://pandorapp.herokuapp.com/api/2FA/recuperar";
     private final OkHttpClient httpClient = new OkHttpClient();
 
     private TextView email;
     private TextView password;
-    private Button entrar;
+    private Button enviar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_reestablecer_uno);
 
+        email = findViewById(R.id.email_reestablecer);
+        password = findViewById(R.id.clave_reestablecer);
+        enviar = findViewById(R.id.enviar_codigo);
 
-        email = findViewById(R.id.login_entrada_usuario);
-        password = findViewById(R.id.login_entrada_clave);
-        entrar = findViewById(R.id.login_entrar);
+        // Rellenamos el campo con su email
+        // puesto que ya lo conocemos
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
 
+        email.setText(sharedPreferencesHelper.getString("email"));
+        password.setText(sharedPreferencesHelper.getString("masterPassword"));
     }
 
-    public void entrar(View view) throws InterruptedException {
-        entrar.setEnabled(false);
+    public void goSiguiente(View view) throws InterruptedException {
+        enviar.setEnabled(false);
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
-        sharedPreferencesHelper.put("email", email.getText().toString().trim());
-        sharedPreferencesHelper.put("password", password.getText().toString().trim());
+        doPost(email.getText().toString(), password.getText().toString());
+        enviar.setEnabled(true);
 
-        doPost(sharedPreferencesHelper.getString("email"),
-                sharedPreferencesHelper.getString("password"));
-        entrar.setEnabled(true);
-    }
-
-    public void entrarReestablecer(View view) throws InterruptedException {
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
-        sharedPreferencesHelper.put("email", email.getText().toString().trim());
-        sharedPreferencesHelper.put("password", password.getText().toString().trim());
-        startActivity(new Intent(Login.this, ReestablecerUno.class));
     }
 
     private void doPost(final String correo, final String contrasena) throws InterruptedException {
@@ -99,12 +92,7 @@ public class Login extends AppCompatActivity {
                 try (Response response = httpClient.newCall(request).execute()) {
                     JSONObject json = new JSONObject(response.body().string());
                     if (response.isSuccessful()) {
-                        String token = json.getString("token");
-                        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
-                        sharedPreferencesHelper.put("lastCodeDate", (long) 0);
-                        sharedPreferencesHelper.put("token", token);
-                        startActivity(new Intent(Login.this, Principal.class));
-                        finishAffinity();
+                        startActivity(new Intent(ReestablecerUno.this, ReestablecerDos.class));
                     }else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));
                     }

@@ -7,15 +7,15 @@
     android:background="@color/colorFondo">
 
 
-
     <TextView
         android:id="@+id/reinicio_texto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
+        android:clickable="true"
+        android:onClick="entrarReestablecer"
         android:text="¿No puede entrar?"
         android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/login_entrar"
         app:layout_constraintHorizontal_bias="0.93"
