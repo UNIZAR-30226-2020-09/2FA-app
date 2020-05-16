@@ -90,7 +90,7 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         // Recuperar información del usuario.
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         email = sharedPreferencesHelper.getString("email",null);
         password = sharedPreferencesHelper.getString("password",null);
 
@@ -105,9 +105,19 @@ public class Principal extends AppCompatActivity {
         }
         else{
             intsegudnosCuenta = (int)(tActual/1000 - lastCodeDate/1000);
-            key2FA.setText(sharedPreferencesHelper.getString("codeTFA"));
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    key2FA.setText(sharedPreferencesHelper.getString("codeTFA"));
+                }
+            });
         }
-        segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+            }
+        });
 
 
         timer.schedule(timerTask, 0, 1000);
@@ -123,7 +133,12 @@ public class Principal extends AppCompatActivity {
         drawerView = findViewById(R.id.principal_drawer);
         headerDrawer = drawerView.getHeaderView(0);
         drawerEmail = headerDrawer.findViewById(R.id.drawer_email);
-        drawerEmail.setText(email);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                drawerEmail.setText(email);
+            }
+        });
     }
 
 
