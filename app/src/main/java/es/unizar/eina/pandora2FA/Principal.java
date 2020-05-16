@@ -11,6 +11,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
@@ -130,7 +132,7 @@ public class Principal extends AppCompatActivity {
 
     public void cerrarSesion(MenuItem menuItem){
         doPostCerrarSesion();
-
+        timerTask.cancel();
         SharedPreferencesHelper.getInstance(getApplicationContext()).clear();
         startActivity(new Intent(Principal.this, Inicio.class));
         finishAffinity();
@@ -168,13 +170,23 @@ public class Principal extends AppCompatActivity {
 
         if(intsegudnosCuenta > segundosMin){
             intsegudnosCuenta --;
-            segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+                }
+            });
             return;
         }
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         sharedPreferencesHelper.put("lastCodeDate", SystemClock.uptimeMillis());
         intsegudnosCuenta = segundosMax;
-        segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
+            }
+        });
 
         // Recogemos el token
         String token = SharedPreferencesHelper.getInstance(getApplicationContext()).getString("token");
@@ -207,7 +219,12 @@ public class Principal extends AppCompatActivity {
                     JSONObject json = new JSONObject(response.body().string());
                     if (response.isSuccessful()) {
                         stringkey2FA = json.getString("key");
-                        key2FA.setText(stringkey2FA);
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                key2FA.setText(stringkey2FA);
+                            }
+                        });
                         SharedPreferencesHelper.getInstance(getApplicationContext()).put("codeTFA", stringkey2FA);
                     }else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));
