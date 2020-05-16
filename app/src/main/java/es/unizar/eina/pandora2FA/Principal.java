@@ -97,9 +97,6 @@ public class Principal extends AppCompatActivity {
         key2FA = findViewById(R.id.id_key2FA);
         segundosCuenta = findViewById(R.id.id_segudnos);
 
-
-
-
         long lastCodeDate = sharedPreferencesHelper.getLong("lastCodeDate");
         long tActual = SystemClock.uptimeMillis();
 
