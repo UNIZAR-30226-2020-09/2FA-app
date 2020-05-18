@@ -74,11 +74,15 @@ public class Principal extends AppCompatActivity {
     private TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
-            try {
-                actualizarCodigo();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    try {
+                        actualizarCodigo();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     };
 
@@ -179,26 +183,17 @@ public class Principal extends AppCompatActivity {
 
 
     public void actualizarCodigo() throws InterruptedException {
-
+        key2FA.setText(stringkey2FA);
         if(intsegudnosCuenta > segundosMin){
             intsegudnosCuenta --;
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
-                }
-            });
+            segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
             return;
         }
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         sharedPreferencesHelper.put("lastCodeDate", SystemClock.uptimeMillis());
         intsegudnosCuenta = segundosMax;
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
-            }
-        });
+        
+        segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
 
         // Recogemos el token
         String token = SharedPreferencesHelper.getInstance(getApplicationContext()).getString("token");
@@ -231,12 +226,6 @@ public class Principal extends AppCompatActivity {
                     JSONObject json = new JSONObject(response.body().string());
                     if (response.isSuccessful()) {
                         stringkey2FA = json.getString("key");
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                key2FA.setText(stringkey2FA);
-                            }
-                        });
                         SharedPreferencesHelper.getInstance(getApplicationContext()).put("codeTFA", stringkey2FA);
                     }else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));
@@ -249,6 +238,7 @@ public class Principal extends AppCompatActivity {
         });
         thread.start();
         thread.join();
+        key2FA.setText(stringkey2FA);
     }
 
     public void doPostEliminarCuenta() {

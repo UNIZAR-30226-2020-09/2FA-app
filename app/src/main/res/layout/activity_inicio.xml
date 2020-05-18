@@ -12,17 +12,19 @@
         android:layout_height="match_parent"
         android:background="@color/colorButtonEnabled"
         android:forceDarkAllowed="false"
-        tools:layout_editor_absoluteX="95dp"
-        tools:layout_editor_absoluteY="199dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/inicio_bienvenido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="32dp"
             android:text="@string/inicio_bienvenido"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="50sp"
+            android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/inicio_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -32,7 +34,7 @@
         <ImageView
             android:id="@+id/inicio_logo"
             android:layout_width="316dp"
-            android:layout_height="150dp"
+            android:layout_height="80dp"
             android:layout_marginBottom="12dp"
             android:contentDescription="@string/inicio_logo"
             app:layout_constraintBottom_toTopOf="@+id/inicio_subtexto"
@@ -50,9 +52,9 @@
             android:text="@string/inicio_subtexto"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="50sp"
-            app:layout_constraintBottom_toTopOf="@+id/inicio_text_nUsers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/inicio_logo"
+            app:layout_constraintHorizontal_bias="0.556"
+            app:layout_constraintStart_toStartOf="@+id/inicio_logo"
             app:layout_constraintTop_toBottomOf="@+id/inicio_logo" />
 
         <Button
@@ -103,13 +105,15 @@
             android:id="@+id/inicio_nUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
             android:text="0"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/inicio_subtexto"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inicio_subtexto" />
 
         <TextView
@@ -129,12 +133,14 @@
             android:id="@+id/inicio_nPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="32dp"
             android:text="0"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/inicio_subtexto"
             app:layout_constraintTop_toBottomOf="@+id/inicio_subtexto" />
 

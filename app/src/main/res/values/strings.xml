@@ -11,4 +11,13 @@
 
     <string name="principal_generar2FA">Generar código</string>
 
+    <string name="registro2_texto">Registro</string>
+    <string name="registro2_texto_clave1">Introduzca una nueva clave maestra</string>
+    <string name="registro2_hint_clave1">Clave maestra</string>
+    <string name="registro2_long_clave">40</string>
+    <string name="registro2_long_clave2">40</string>
+    <string name="registro2_texto_clave2">Repita la clave maestra</string>
+    <string name="registro2_hint_clave2">Clave maestra</string>
+    <string name="registro2_confirmar">Confirmar</string>
+
 </resources>
