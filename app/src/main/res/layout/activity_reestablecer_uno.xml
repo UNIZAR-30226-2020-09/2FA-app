@@ -9,10 +9,11 @@
 
     <TextView
         android:id="@+id/login_texto3"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Para cerrar sesión en todos los dispositivos"
+        android:gravity="center"
+        android:text="@string/para_cerrar_sesi_n_en_todos_los_dispositivos"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/login_texto_usuario"
@@ -27,7 +28,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
-        android:text="Reestablecer accesos"
+        android:text="@string/reestablecer_accesos"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/login_texto_usuario"
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
         android:layout_marginTop="16dp"
-        android:text="Email"
+        android:text="@string/email"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/email_reestablecer"
@@ -58,13 +59,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="66dp"
         android:ems="10"
-        android:hint="example@example.example"
+        android:hint="@string/example_example_example"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/texto_clave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_texto_usuario" />
+        app:layout_constraintTop_toBottomOf="@+id/login_texto_usuario"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/texto_clave"
@@ -72,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
         android:layout_marginTop="32dp"
-        android:text="Clave maestra"
+        android:text="@string/clave_maestra"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/clave_reestablecer"
@@ -91,13 +93,15 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:ems="10"
-        android:hint="Introduzca su clave maestra"
+        android:hint="@string/introduzca_su_clave_maestra"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/enviar_codigo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/texto_clave" />
+        app:layout_constraintTop_toBottomOf="@+id/texto_clave"
+        android:importantForAutofill="no"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/enviar_codigo"
@@ -107,7 +111,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="32dp"
         android:onClick="goSiguiente"
-        android:text="Enviar código"
+        android:text="@string/enviar_c_digo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

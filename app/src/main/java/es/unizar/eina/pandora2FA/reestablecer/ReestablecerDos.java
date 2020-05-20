@@ -208,6 +208,7 @@ public class ReestablecerDos extends AppCompatActivity {
             confirmar.setEnabled(false);
 
             doPost(sharedPreferencesHelper.getString("email"), sharedPreferencesHelper.getString("password"), password.getText().toString(), codigo.getText().toString());
+            confirmar.setEnabled(true);
         }
     }
 

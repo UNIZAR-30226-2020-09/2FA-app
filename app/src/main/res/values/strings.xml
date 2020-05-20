@@ -19,5 +19,16 @@
     <string name="registro2_texto_clave2">Repita la clave maestra</string>
     <string name="registro2_hint_clave2">Clave maestra</string>
     <string name="registro2_confirmar">Confirmar</string>
+    <string name="reestablecer_accesos">Reestablecer accesos</string>
+    <string name="para_cerrar_sesi_n_en_todos_los_dispositivos">Se enviará un código al correo para cerrar sesión en todos los dispositivos</string>
+    <string name="email">Email</string>
+    <string name="example_example_example">example@example.example</string>
+    <string name="clave_maestra">Clave maestra</string>
+    <string name="introduzca_su_clave_maestra">Introduzca su clave maestra</string>
+    <string name="enviar_c_digo">Enviar código</string>
+    <string name="cargando">CARGANDO...</string>
+    <string name="_10">10</string>
+    <string name="introduzca_este_c_digo_en_pandora">Introduzca este código en Pandora</string>
+    <string name="tiempo_restante">Tiempo restante...</string>
 
 </resources>

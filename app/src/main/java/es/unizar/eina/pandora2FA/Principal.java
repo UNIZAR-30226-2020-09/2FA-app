@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -109,12 +111,8 @@ public class Principal extends AppCompatActivity {
         }
         else{
             intsegudnosCuenta = (int)(tActual/1000 - lastCodeDate/1000);
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    key2FA.setText(sharedPreferencesHelper.getString("codeTFA"));
-                }
-            });
+            stringkey2FA = sharedPreferencesHelper.getString("codeTFA");
+            key2FA.setText(stringkey2FA);
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
@@ -145,6 +143,12 @@ public class Principal extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+    }
+
 
     public void cerrarSesion(MenuItem menuItem){
         doPostCerrarSesion();
@@ -157,6 +161,15 @@ public class Principal extends AppCompatActivity {
     public void contactar(MenuItem menuItem){
         SharedPreferencesHelper.getInstance(getApplicationContext()).put("guest",false);
         startActivity(new Intent(Principal.this, ContactarUno.class));
+    }
+
+    public void copiar(View view){
+        //place your TextView's text in clipboard
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        assert clipboard != null;
+        ClipData cd = ClipData.newPlainText("2FAKEY", key2FA.getText());
+        clipboard.setPrimaryClip(cd);
+        PrintOnThread.show(getApplicationContext(), "Copiado a portapapeles");
     }
 
     public void sobrePandora(MenuItem menuItem){
@@ -189,7 +202,7 @@ public class Principal extends AppCompatActivity {
             segundosCuenta.setText(String.valueOf(intsegudnosCuenta));
             return;
         }
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         sharedPreferencesHelper.put("lastCodeDate", SystemClock.uptimeMillis());
         intsegudnosCuenta = segundosMax;
         
@@ -226,8 +239,13 @@ public class Principal extends AppCompatActivity {
                     JSONObject json = new JSONObject(response.body().string());
                     if (response.isSuccessful()) {
                         stringkey2FA = json.getString("key");
-                        SharedPreferencesHelper.getInstance(getApplicationContext()).put("codeTFA", stringkey2FA);
-                    }else{
+                    }
+                    else if (response.code() != 400 ){
+                        SharedPreferencesHelper.getInstance(getApplicationContext()).clear();
+                        startActivity(new Intent(Principal.this, Inicio.class));
+                        finish();
+                    }
+                    else{
                         PrintOnThread.show(getApplicationContext(), json.getString("statusText"));
                     }
                 }
@@ -239,6 +257,7 @@ public class Principal extends AppCompatActivity {
         thread.start();
         thread.join();
         key2FA.setText(stringkey2FA);
+        sharedPreferencesHelper.put("codeTFA", stringkey2FA);
     }
 
     public void doPostEliminarCuenta() {

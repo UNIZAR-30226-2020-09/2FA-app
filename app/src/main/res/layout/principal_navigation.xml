@@ -27,14 +27,6 @@
                 app:navigationIcon="@drawable/ic_menu"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <ImageButton
-                android:id="@+id/topbar_filtros"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="54dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp" />
-
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -51,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="CARGANDO..."
+            android:onClick="copiar"
+            android:text="@string/cargando"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="36sp"
             android:textStyle="bold"
@@ -67,7 +60,7 @@
             android:layout_height="32dp"
             android:layout_marginBottom="64dp"
             android:gravity="center"
-            android:text="10"
+            android:text="@string/_10"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -79,7 +72,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Introduzca este código en Pandora"
+            android:text="@string/introduzca_este_c_digo_en_pandora"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/id_key2FA"
             app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="149dp"
             android:layout_marginEnd="150dp"
-            android:text="Tiempo restante..."
+            android:text="@string/tiempo_restante"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/id_segudnos"
             app:layout_constraintEnd_toEndOf="parent"
