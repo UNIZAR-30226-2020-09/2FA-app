@@ -51,7 +51,6 @@
         android:hint="ABCDEF"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/login_texto_clave"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_texto_usuario" />
 
